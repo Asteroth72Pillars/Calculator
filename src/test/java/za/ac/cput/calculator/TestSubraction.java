@@ -4,100 +4,88 @@
  * and open the template in the editor.
  */
 package za.ac.cput.calculator;
-import java.util.Scanner;
-import org.junit.jupiter.api.Disabled;
+import java.time.Duration;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.Disabled;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assertions.*;
 /**
  *
  * @author zaihd
  */
 public class TestSubraction 
-{
-    int choice, num1, num2, answer;
+{    
+   private String instance1;
+   private String instance2;
+   private String instance3;
 
-        System.out.println("\tCalculator");
-        System.out.println("1: Minus");
-        System.out.println("2: Exit");
 
-        System.out.println("Enter first number");
-        num1 = scn.nextInt();
-        System.out.println("Enter second number");
-        num2 = scn.nextInt();
-        System.out.println("Enter your choice");
+                //Idenetity of object
+                @Test
+                void testIdentity()
+                {
+                assertSame(instance1,instance3);
+                assertNotSame(instance1,instance2);
+                }
+                 
+                @Test
+                void failTest() 
+                            {
+                                fail("a failing test");
+                            }         
 
-        choice = scn.nextInt();
+                void abortTest() 
+                            {
+                                assumeTrue("424".contains("4"));
+                                fail("aborted");
+                            }    
+                
+                
+                //Test of Disabled
+                @Disabled("Disabled test")
+                @Test
+                void test()
+                    {
+                    System.out.println("Sub JUnit5:test- disbled");
+                    Equals(2, instance1.subtract(3,3));
+                    }
+                
+                @Test
+                void testSub()
+                    {
+                    Equals(7, instance1.subtract(6,3));
+                    }
+                
+                
+                
+                //Timeout
+                @Test
+                @Timeout(value = 1000, unit = TimeUnit.MILLISECONDS)
+                            public void testTimeout()
+                                {
+                                    instance1 = new String();
+                                    System.out.println("Subtracting JUnitTest :test sub method - test Timeout()");
+                                    final double subto =1+(int)(1452*Math.random());
+                                    final double subthis =1+(int)(1452*Math.random());
+                                    System.out.println("Subraction :"+String.valueOf(subto)+"+"+String.valueOf(subthis));
+                                    System.out.println(String.valueOf(subto)+"+"+String.valueOf(subthis)+"="+instance1.sub(subto,subthis));
+                                }        
 
-        switch (choice) {
-            case 1:
-                answer = num1 - num2;
-                System.out.println("Subtraction: " + answer);
-                break;
-            case 5:
-                System.out.println("Thank you.");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Wrong choice");
-        }
-        System.out.println("Switch done.");
-       
+
         
-        if (num1==num2)
-        {
-            System.out.println("Object is equal");
-        }
 
-        //timeout
-        final Duration timeout = Duration.ofSeconds(30);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        final Future<String> handler = executor.submit(new Callable() 
-        {
-            @Override
-            public String call() throws Exception 
-                {
-                return requestDataFromModem();
-                }
-        });
-
-        try {
-            handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
-        } catch (TimeoutException e) 
-            {
-                handler.cancel(true);
-            }
-
-        executor.shutdownNow();
-                
-                
-        //disable        
-        public class DisabledTestMethod 
-        {
-
-            @Disabled("Disabled")
-            @Test
-            
-            void testCustomerServiceGet() 
-                {
-                assertEquals(2, 1 + 1);
-                }
-
-            @Test
-            void test3Plus3() 
-                {
-                assertEquals(6, 3 + 3);
-                }        
-        }
  
-        
-
-        
-        
-        
 }
 
 
